@@ -1,7 +1,8 @@
 /* new CSS style sheet */
 
 body {
-    background-color: rgb(195, 255, 205);
+    /* background-color: rgb(195, 255, 205); */
+    background-image: url("../assets/dog.jpg");
 }
 
 .is-ancestor {
