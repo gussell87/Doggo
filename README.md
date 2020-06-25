@@ -1,4 +1,4 @@
-# celebrity-quote
+# dog-breed-search
 TBC
 Project 1 User Story
 As a dog lover,
