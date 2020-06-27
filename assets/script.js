@@ -1,29 +1,73 @@
-// New JS file
+$("document").ready(function () {
+    var dogApiKey = "804e825d-6365-40ce-99e9-1312b077fc63";
 
-// API key for "The dog api" - https://docs.thedogapi.com/
-var apiKey = "804e825d-6365-40ce-99e9-1312b077fc63"
+    function getImageUrl(imageElement, breedId, breedName) {
+        // first check thedogapi for an image, if no result, check wikipedia
+        $.ajax({
+            method: "GET",
+            url: "https://api.thedogapi.com/v1/images/search?apikey=" + dogApiKey + "&breed_id=" + breedId,
+        }).then(function (response) {
+            if (response[0]) {
+                imageElement.attr("src", response[0].url);
+            }
+            else {
+                getBackupImageUrl(imageElement, breedName);
+            }
+        });
+    }
 
-function getDog(dogSearch) {  
-    console.log(dogSearch)
+    $(".button").on("click", function () {
+        // clearResults();
+        var rootObject = $("#search-results");
+        //api key
+        // var dogApiKey = "804e825d-6365-40ce-99e9-1312b077fc63";
+        //user input query added to var
+        var breedId = $(".input").val();
+        //forming url depending on input (Andrew to update)
+        var queryURL = ("https://api.thedogapi.com/v1/breeds/search?apikey=" + dogApiKey + "&q=" + breedId);
+        //check if url working
+        // console.log(queryURL);
+        //retreive data
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+            rootObject.empty();
+            response.forEach(element => {
+                console.log(element);
+                var searchListItem = $("<li>").addClass("dog-list");
+                rootObject.append(searchListItem);
+                searchListItem.text(element.name);
+                searchListItem.attr("data-id", element.id);
+                // displayBreed(element, $("<div>").attr("style", "border: 1px solid black"))
+            });
 
-    $.ajax({
-        async: true,
-        crossDomain: true,
-        url: "https://api.thedogapi.com/v1/breeds/search?api_key=804e825d-6365-40ce-99e9-1312b077fc63&q=" + dogSearch,
-        method: "GET",
-    }).done(function (response) {
-        $("#bredFor").text(response[0].bred_for)
-        $("#dogWeight").text(response[0].weight.metric)
-        $("#dogTemp").text(response[0].temperament)
-        console.log(response[0].bred_for)
-        console.log(response);
+            // var results = response.response.docs;
+            // for (var i = 0; i < breedsReturned; {
+            // var breedDiv = $("<div>");
+
+            //Do info
+            //$("#dogInfo").text("Breed Group: "+ element.breed_group, <br> "Height: "+element.weight.metric, <br> "Life Span: "+ element.life_span, <br> "Weight: " +element.weight.metric)
+
+            // });
+        });
+  
     });
-};
+    $("#search-results").on("click", ".dog-list", function(event) {
+        // console.log(event.target);
+        console.log($(this));
+        var imageName = $(this).text();
+        console.log(imageName);
+        getImageUrl($("img"), $(this).attr("data-id"), imageName);
+    });
 
-var srcBtn = $("#srcBtn");
-srcBtn.on("click", function () {
-    event.preventDefault();
-    var dogSearch = $(this).prev().val().trim();
-    console.log(dogSearch);
-    getDog(dogSearch);
+    function clearResults() {
+        $(this).closest('form').find("input[type=text], textarea").val("");
+        $("#dogOne").closest('form').find("input[type=text], textarea").val("");
+        $("#dogTwo").closest('form').find("input[type=text], textarea").val("");
+        $("#dogThree").closest('form').find("input[type=text], textarea").val("");
+        $("#dogFour").closest('form').find("input[type=text], textarea").val("");
+        $("#dogTemp").empty();
+
+    };
 });
