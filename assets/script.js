@@ -51,7 +51,7 @@ $("document").ready(function () {
 
             // });
         });
-  
+
     });
     $("#search-results").on("click", ".dog-list", function(event) {
         // console.log(event.target);
@@ -68,6 +68,5 @@ $("document").ready(function () {
         $("#dogThree").closest('form').find("input[type=text], textarea").val("");
         $("#dogFour").closest('form').find("input[type=text], textarea").val("");
         $("#dogTemp").empty();
-
     };
 });
