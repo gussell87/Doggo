@@ -146,6 +146,5 @@ $("document").ready(function () {
         $("#dogThree").closest('form').find("input[type=text], textarea").val("");
         $("#dogFour").closest('form').find("input[type=text], textarea").val("");
         $("#dogTemp").empty();
-
     };
 });
