@@ -53,7 +53,7 @@ $("document").ready(function () {
         });
 
     });
-    $("#search-results").on("click", ".dog-list", function (event) {
+    $("#search-results").on("click", ".dog-list", function(event) {
         // console.log(event.target);
         console.log($(this));
         var imageName = $(this).text();
@@ -68,6 +68,5 @@ $("document").ready(function () {
         $("#dogThree").closest('form').find("input[type=text], textarea").val("");
         $("#dogFour").closest('form').find("input[type=text], textarea").val("");
         $("#dogTemp").empty();
-
     };
 });

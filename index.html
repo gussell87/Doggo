@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Doggo App!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css"
-        integrity="sha256-aPeK/N8IHpHsvPBCf49iVKMdusfobKo2oxF8lRruWJg=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+        integrity="sha266-aPeK/N8IHpHsvPBCf49iVKMdusfobKo2oxF8lRruWJg=" crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.8.1/css/all.css"
+        integrity="sha384-60oBUHEmvpQ+1lW4y67PTFmhCaXp0ML6d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" /> -->
+    <script src="https://kit.fontawesome.com/e9dd69c6cf.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./assets/style.css" />
     <link rel="icon" href="./assets/favicon.cc.ico" type="image/x-icon">
 </head>
@@ -16,10 +17,9 @@
 <body>
     <nav class="navbar level" role="navigation" aria-label="main navigation">
         <div class="navbar-brand level-item has-text-centered">
-            <h1 class="title">
-
-                D<i class="fas fa-paw"></i>GG<i class="fas fa-paw"></i>
-            </h1>
+            <h1 class="title is-2 has-text-grey">
+                D<i class="fas fa-paw has-text-primary-dark"></i>GG<i class="fas fa-paw has-text-primary-dark"></i>
+            </h1 class="title is-4">
         </div>
     </nav>
     <div class="tile is-ancestor">
@@ -37,12 +37,11 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="content">
-                            <p class="title">Breeds</p>
-                            <ul id="search-results">
-                                <li>dog1</li>
-                                <li>dog2</li>
-                                <li>dog3</li>
+                        <div class="menu">
+                            <p class="menu-label">Breeds</p>
+                            <ul id="search-results" class="menu-list">
+                                <li><a>Your Search Appears Here</a></li>
+                                <li><a>dog1</a></li>
                             </ul>
                         </div>
                     </div>
@@ -51,32 +50,39 @@
                     <div class="tile">
                         <div class="tile is-parent">
                             <article class="tile is-child box">
-                                <p class="title">DOG INFO</p>
+                                <p class="title has-text-grey">DOG INFO</p>
+                                <p class="title is-4 is-spaced has-text-primary-dark">Breed Group:<span id="dogGroup" class="has-text-grey">
+                                    Group Detail
+                                </span></p>
+                                
+                                <h1 class="title is-4 is-spaced has-text-primary-dark">Height (cm): <span id="dogHeight" class="has-text-grey">
+                                    200-250
+                                </span></h1>
+                               
+                                <h1 class="title is-4 is-spaced has-text-primary-dark">Weight (kg): <span id="dogWeight" class="has-text-grey">
+                                        105-178
+                                </span></h1>
 
-                                <p id="dogInfo">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore
-
-                                    molestiae officiis temporibus nostrum natus cum pariatur placeat. Natus excepturi
-                                    repellendus, aut, molestias libero ipsum iste aliquam sequi veniam a nostrum,
-                                    corporis fuga vel. Soluta accusantium, eveniet nesciunt explicabo commodi dolorum
-                                    veritatis officia similique quos doloremque ad repellat culpa blanditiis dolor.
-                                </p>
+                                <h1 class="title is-4 is-spaced has-text-primary-dark">Life Span (years): <span id="dogLife" class="has-text-grey">
+                                       12-15
+                                    </span>
+                                </h1>
                             </article>
                         </div>
                         <div class="tile is-parent">
                             <article class="tile is-child box">
-                                <p class="title">DOG IMAGE</p>
+                                <p class="title has-text-grey">DOG IMAGE</p>
                                 <figure class="image is-128x128">
-                                    <img src="https://bulma.io/images/placeholders/256x256.png">
+                                    <img src="https://bulma.io/images/placeholders/266x266.png">
                                 </figure>
                             </article>
                         </div>
                     </div>
                     <div class="tile is-parent">
                         <article class="tile is-child box">
-                            <p class="title">WIKI</p>
+                            <p class="title has-text-grey">WIKI</p>
 
-                            <p id="dogWiki">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam
-                                pariatur
+                            <p id="dogWiki">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam pariatur
 
                                 sapiente repellendus ratione adipisci blanditiis corporis rerum, vitae soluta culpa.
                                 Accusantium nobis dolores saepe ipsum, quis quos obcaecati totam? Voluptatem, eaque?
