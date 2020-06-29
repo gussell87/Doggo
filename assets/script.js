@@ -1,6 +1,6 @@
 $("document").ready(function () {
     var dogApiKey = "804e825d-6365-40ce-99e9-1312b077fc63";
-    var defaultImgUrl = "https://placekitten.com/200/200";
+    var defaultImgUrl = "./assets/dog.jpg";
 
     // brought the most commonly used call into a separate function
     function dogApiCall(breedName) {
@@ -16,10 +16,11 @@ $("document").ready(function () {
         getImageUrl($("img"), dogApiResponse.id, dogApiResponse.name)
         getWikiText($("#dogWiki"), dogApiResponse.name);
         $("#dogName").text(dogApiResponse.name);
-        $("#dogGroup").text(dogApiResponse.breed_group);
+        $("#dogGroup").text(dogApiResponse.bred_for);
         $("#dogHeight").text(dogApiResponse.height.metric + " cm");
         $("#dogWeight").text(dogApiResponse.weight.metric + " kg");
         $("#dogLife").text(dogApiResponse.life_span);
+        $("#dogTemperament").text(dogApiResponse.temperament);
     }
 
     // Function to request a page summary from en.wikipedia.org
@@ -33,21 +34,24 @@ $("document").ready(function () {
             method: "GET",
             url: "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=1&explaintext=1&origin=*&titles=" + breedName
         }).then(function (response) {
+            console.log(response);
             // this variable makes it easier to check for invalid responses
             var usableResponse = response.query.pages[Object.keys(response.query.pages)];
             // does the usable part of the response exist?
             if (usableResponse) {
                 // does the response have a non-empty text extract?
                 if (usableResponse.extract) {
-                    // Yay! print the extract
-                    textElement.text(usableResponse.extract);
+                    // Yay! print the extract, put a link to the page
+                    textElement.html(usableResponse.extract);
+                    $("#wikiTitle").html(`<a href="https://en.wikipedia.org/wiki/${usableResponse.title}" target="_blank">Wikipedia.org - ${usableResponse.title}</a>`);
                 } else {
                     // non-error response but no text? try the original search term (useful for poodle, husky, hound, shepherd)
                     if (searchOrigin !== breedName) {
                         getWikiText(textElement, searchOrigin);
                     }
                     else {
-                        textElement.text("No Response from Wikipedia");
+                        textElement.html("No Response from Wikipedia");
+                        $("#wikiTitle").html("Wiki");
                     }
                 }
             }
