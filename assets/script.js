@@ -13,7 +13,7 @@ $("document").ready(function () {
 
     // Takes a single response from thedogapi.com and fills out each field
     function displayBreed(dogApiResponse) {
-        getImageUrl($("img"), dogApiResponse.id, dogApiResponse.name)
+        getImageUrl($("#dogImage"), dogApiResponse.id, dogApiResponse.name)
         getWikiText($("#dogWiki"), dogApiResponse.name);
         $("#dogName").text(dogApiResponse.name);
         $("#dogGroup").text(dogApiResponse.bred_for);
