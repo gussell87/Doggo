@@ -7,8 +7,6 @@
     <title>Doggo App!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css"
         integrity="sha266-aPeK/N8IHpHsvPBCf49iVKMdusfobKo2oxF8lRruWJg=" crossorigin="anonymous" />
-    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.8.1/css/all.css"
-        integrity="sha384-60oBUHEmvpQ+1lW4y67PTFmhCaXp0ML6d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" /> -->
     <script src="https://kit.fontawesome.com/e9dd69c6cf.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./assets/style.css" />
     <link rel="icon" href="./assets/favicon.cc.ico" type="image/x-icon">
@@ -29,10 +27,10 @@
                     <div class="tile is-child box">
                         <div class="field has-addons">
                             <div class="control">
-                                <input class="input" type="text" placeholder="Search Breeds">
+                                <input class="input" type="text" placeholder="Search Breeds" id="search-input">
                             </div>
                             <div class="control">
-                                <a class="button is-primary">
+                                <a class="button is-primary" id="search-button">
                                     <i class="fas fa-search"></i>
                                 </a>
                             </div>
@@ -71,8 +69,8 @@
                                         How long will this Doggo live?
                                     </span>
                                 </h1>
-                                <h1 class="title is-4 is-spaced has-text-primary-dark">Temperament: <span id="dogTemperament"
-                                        class="has-text-grey">
+                                <h1 class="title is-4 is-spaced has-text-primary-dark">Temperament: <span
+                                        id="dogTemperament" class="has-text-grey">
                                         How playful is this Doggo?
                                     </span>
                                 </h1>
@@ -119,6 +117,8 @@
             </a>
         </div>
     </footer>
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="./assets/script.js"></script>
 </body>
