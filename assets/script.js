@@ -34,7 +34,6 @@ $("document").ready(function () {
             method: "GET",
             url: "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=1&explaintext=1&origin=*&titles=" + breedName
         }).then(function (response) {
-            console.log(response);
             // this variable makes it easier to check for invalid responses
             var usableResponse = response.query.pages[Object.keys(response.query.pages)];
             // does the usable part of the response exist?
@@ -106,7 +105,7 @@ $("document").ready(function () {
         // Andrew set the rootObject here to make it easier to integrate the code
         var rootObject = $("#search-results");
         // gets the search term from the text input box
-        var breedName = $(".input").val();
+        var breedName = $("#search-input").val();
         // clears the list and lets the user know something is happening
         rootObject.html("Searching...");
         dogApiCall(breedName).then(function (response) {
@@ -114,6 +113,11 @@ $("document").ready(function () {
             rootObject.empty();
             // check if we got a good response
             if (response[0]) {
+                // remove the search bar tooltip
+                $("#search-input")[0]._tippy.disable();
+                // expose the search results tooltip
+                $("#search-results")[0]._tippy.enable();
+                $("#search-results")[0]._tippy.show();
                 // save the search term for later use
                 rootObject.attr("data-id", breedName);
                 // display the info of the first search result
@@ -128,10 +132,14 @@ $("document").ready(function () {
             }
             // if no good response
             else {
+                $("#search-input")[0]._tippy.enable();
+                $("#search-input")[0]._tippy.show();
                 rootObject.append("No results found");
+                $("#search-results")[0]._tippy.disable();
             }
         });
     });
+
 
     // event listener for clicking on the search results
     $("#search-results").on("click", "a", function () {
@@ -142,12 +150,14 @@ $("document").ready(function () {
         })
     });
 
-    // function clearResults() {
-    //     $(this).closest('form').find("input[type=text], textarea").val("");
-    //     $("#dogOne").closest('form').find("input[type=text], textarea").val("");
-    //     $("#dogTwo").closest('form').find("input[type=text], textarea").val("");
-    //     $("#dogThree").closest('form').find("input[type=text], textarea").val("");
-    //     $("#dogFour").closest('form').find("input[type=text], textarea").val("");
-    //     $("#dogTemp").empty();
-    // };
+    tippy('#search-input', {
+        content: 'Type some words and search for dog breeds!',
+    });
+
+    tippy('#search-results', {
+        content: 'Click a result to see the details!',
+    });
+    // document.getElementById('search-input').focus();
+    $("#search-input")[0]._tippy.show();
+    $("#search-results")[0]._tippy.disable();
 });
