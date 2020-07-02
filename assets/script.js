@@ -114,9 +114,33 @@ $("document").ready(function () {
         });
     }
 
-    $(".button").on("click", function () {
+    function displaySearch(response) {
+        // remove the search bar tooltip
+        searchInputTippy[0].disable();
+        // expose the search results tooltip
+        searchResultTippy[0].enable();
+        searchResultTippy[0].show();
+        scrollTippy[0].show();
+        setTimeout(() => {
+            searchResultTippy[0].hide();
+            scrollTippy[0].hide();
+            scrollTippy[0].disable();
+        }, 4500);
+        $("#search-results").empty();
+        displayBreed(response[0]);
+        // for loop to display up to five results
+        for (var i = 0; i < 5 && i < response.length; i++) {
+            var searchListItem = $("<a>")
+            $("#search-results").append($("<li>").append(searchListItem));
+            // <a> tag required for styling
+            searchListItem.html(response[i].name).data("index", i);
+            lastSearchResponse[i] = response[i];
+        }
+    }
+
+    function doSearch() {
         // gets the search term from the text input box
-        var breedName = $("#search-input").val();
+        var breedName = $("#search-input").val().trim();
         // clears the list and lets the user know something is happening
         $("#search-results").html("Searching...");
         dogApiCall(breedName).then(function (response) {
@@ -139,37 +163,26 @@ $("document").ready(function () {
                 searchResultTippy[0].disable();
             }
         });
+    }
+
+    $("#search-button").on("click", doSearch);
+    $("#search-input").on("keyup", function(event) {
+        if (event.key == "Enter") {
+            doSearch();
+        }
+    })
+
+    // event listener for clicking on the listed search results
+    $("#search-results").on("click", "a", function () {
+        displayBreed(lastSearchResponse[$(this).data("index")]);
     });
 
+    // event listener for updating images when possible
     $("#dogImage").parent().on('click', function () {
         if (dogImageindex) {
             getImageUrl($("#dogImage"), dogImageindex, $("#dogImage").attr("alt"));
         }
     })
-
-    function displaySearch(response) {
-        // remove the search bar tooltip
-        searchInputTippy[0].disable();
-        // expose the search results tooltip
-        searchResultTippy[0].enable();
-        searchResultTippy[0].show();
-        $("#search-results").empty();
-        displayBreed(response[0]);
-        // for loop to display up to five results
-        for (var i = 0; i < 5 && i < response.length; i++) {
-            var searchListItem = $("<a>")
-            $("#search-results").append($("<li>").append(searchListItem));
-            // <a> tag required for styling
-            searchListItem.html(response[i].name).data("index", i);
-            lastSearchResponse[i] = response[i];
-        }
-    }
-
-
-    // event listener for clicking on the search results
-    $("#search-results").on("click", "a", function () {
-        displayBreed(lastSearchResponse[$(this).data("index")]);
-    });
 
     var searchInputTippy = tippy('#search-input', {
         content: 'Type some words and search for dog breeds!',
@@ -177,6 +190,11 @@ $("document").ready(function () {
 
     var searchResultTippy = tippy('#search-results', {
         content: 'Click a result to see the details!',
+    });
+
+    // This one is specifically here for mobile users
+    var scrollTippy = tippy('#dogName', {
+        content: 'Scroll down to see more info!',
     });
 
     function init() {
