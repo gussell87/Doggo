@@ -11,7 +11,7 @@ This is so I can get a better understanding of different species of dog, to know
 
 
 ## Getting Started 
-Type a breed of dog into the box, and click the search button! A list of breeds will appear below. Click the variety you wish to see information for.
+Type all or part of a breed of dog into the box, and click the search button! Up to five matches will appear below. Click the variety you wish to see information for. You will then be able to view key characteristics, a photo and description for your chosen breed.
 
 
 ## Deployed Application
@@ -25,19 +25,22 @@ https://github.com/gussell87/doggo
 ## Built With
 HTML
 
-CSS: FontAwesome, Bulma
+CSS: Bulma, FontAwesome
 
-JavaScript: JQuery
+JavaScript:  JQuery, Popper & Tippy
 
-Server-side API's: Wikipedia, The Dog API
-
-Third Party API: 
+Other API's: Wikipedia, The Dog API
 
 
 ## API's
-**Image:** https://api.thedogapi.com/v1/images/search?apikey=
-**Breed info** https://api.thedogapi.com/v1/breeds/search?apikey=
-**Description** wikipedia
+**Image & Characteristics** https://api.thedogapi.com/v1/images/search?apikey=
+**Description** https://en.wikipedia.org/w/api.php?action=
+**Layout** https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css
+**Functionality** https://code.jquery.com/jquery-3.4.1.min.js
+**Icons** https://kit.fontawesome.com
+**Tool Tips** https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js
+**Tool Tips** https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js
+
 
 ## Versioning
 We use GitHub for versioning.
