@@ -7,7 +7,7 @@
 
 ## Doggo User Story
 As a dog lover: I want to search dog breed information. This includes height, weight, life-span, breed group, a description and a picture.
-This is so I can get a better understanding of different species of dog, to know which it is the right breed for me and my lifestyle.
+This is so I can get a better understanding of different species of dog, to know which is the right breed for me and my lifestyle.
 
 
 ## Getting Started 
