@@ -32,7 +32,7 @@ $("document").ready(function () {
         // the API call
         $.ajax({
             method: "GET",
-            url: "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=1&explaintext=1&origin=*&titles=" + breedName
+            url: "https://en.wikipedia.org/w/api.php?action=query&format=json&redirects&prop=extracts&exintro=1&explaintext=1&origin=*&titles=" + breedName
         }).then(function (response) {
             // this variable makes it easier to check for invalid responses
             var usableResponse = response.query.pages[Object.keys(response.query.pages)];
@@ -122,13 +122,13 @@ $("document").ready(function () {
                 rootObject.attr("data-id", breedName);
                 // display the info of the first search result
                 displayBreed(response[0]);
-                // for loop to display every result
-                response.forEach(element => {
+                // for loop to display up to five results
+                for (var i = 0; i < 5 && i < response.length; i++) {
                     var searchListItem = $("<a>")
                     rootObject.append($("<li>").append(searchListItem));
                     // <a> tag required for styling
-                    searchListItem.html(element.name);
-                });
+                    searchListItem.html(response[i].name);
+                }
             }
             // if no good response
             else {
@@ -157,7 +157,7 @@ $("document").ready(function () {
     var searchResultTippy = tippy('#search-results', {
         content: 'Click a result to see the details!',
     });
-    // document.getElementById('search-input').focus();
+    document.getElementById('search-input').focus();
     searchInputTippy[0].show();
     searchResultTippy[0].disable();
 });
