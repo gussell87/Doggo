@@ -1,6 +1,9 @@
 $("document").ready(function () {
+    var dogImageindex = "";
     var dogApiKey = "804e825d-6365-40ce-99e9-1312b077fc63";
-    var defaultImgUrl = "./assets/dog.jpg";
+    var defaultImgUrl = "./assets/dogCropped.jpg";
+    var lastSearch = localStorage.getItem("lastSearch") || "";
+    var lastSearchResponse = JSON.parse(localStorage.getItem("lastSearchResponse")) || [];
 
     // brought the most commonly used call into a separate function
     function dogApiCall(breedName) {
@@ -9,6 +12,11 @@ $("document").ready(function () {
             url: queryURL,
             method: "GET"
         });
+    }
+
+    function saveSearch() {
+        localStorage.setItem("lastSearchResponse", JSON.stringify(lastSearchResponse));
+        localStorage.setItem("lastSearch", lastSearch);
     }
 
     // Takes a single response from thedogapi.com and fills out each field
@@ -26,7 +34,7 @@ $("document").ready(function () {
     // Function to request a page summary from en.wikipedia.org
     function getWikiText(textElement, breedName) {
         // this is the search term that was used
-        var searchOrigin = $("#search-results").attr("data-id");
+        var searchOrigin = lastSearch;
         // a loading message
         textElement.html("Checking wikipedia for information...");
         // the API call
@@ -61,7 +69,7 @@ $("document").ready(function () {
     function getBackupImageUrl(imageElement, breedName) {
         $.ajax({
             method: "GET",
-            url: "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=pageimages&pithumbsize=200&pilicense=free&origin=*&titles=" + breedName
+            url: "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=pageimages&pithumbsize=300&pilicense=free&origin=*&titles=" + breedName
         }).then(function (response) {
             // this var makes it easier to process the wikipedia response
             var usableResponse = response.query.pages[Object.keys(response.query.pages)];
@@ -70,14 +78,17 @@ $("document").ready(function () {
                 // checks for available thumbnail
                 if (usableResponse.thumbnail) {
                     imageElement.attr("src", usableResponse.thumbnail.source);
+                    $("#dogImageCaption").html(`Image from <a href="https://en.wikipedia.org/wiki/${usableResponse.title}" target="_blank">Wikipedia.org - ${usableResponse.title}</a>.`)
                 } else {
                     // if response has no thumbnail, use default
                     imageElement.attr("src", defaultImgUrl);
+                    $("#dogImageCaption").html(`Sorry! Couldn't find an image for ${breedName}`);
                 }
             }
             // if there's an error, use the default
             else {
                 imageElement.attr("src", defaultImgUrl);
+                $("#dogImageCaption").html(`Sorry! Something went wrong with the image search`);
             }
         });
     }
@@ -91,63 +102,73 @@ $("document").ready(function () {
             url: "https://api.thedogapi.com/v1/images/search?apikey=" + dogApiKey + "&breed_id=" + breedId,
         }).then(function (response) {
             if (response[0]) {
-                // this is the best case scenario
+                dogImageindex = response[0].breeds[0].id;
                 imageElement.attr("src", response[0].url);
+                $("#dogImageCaption").html(`Click and we'll try to find more ${breedName} images for you!`);
             }
             else {
-                // checks wikipedia
+                dogImageindex = "";
+                // check wikipedia
                 getBackupImageUrl(imageElement, breedName);
             }
         });
     }
 
     $(".button").on("click", function () {
-        // Andrew set the rootObject here to make it easier to integrate the code
-        var rootObject = $("#search-results");
         // gets the search term from the text input box
         var breedName = $("#search-input").val();
         // clears the list and lets the user know something is happening
-        rootObject.html("Searching...");
+        $("#search-results").html("Searching...");
         dogApiCall(breedName).then(function (response) {
-            // clear the list
-            rootObject.empty();
             // check if we got a good response
             if (response[0]) {
-                // remove the search bar tooltip
-                searchInputTippy[0].disable();
-                // expose the search results tooltip
-                searchResultTippy[0].enable();
-                searchResultTippy[0].show();
+                // clear search history
+                lastSearchResponse = [];
                 // save the search term for later use
-                rootObject.attr("data-id", breedName);
+                lastSearch = breedName;
                 // display the info of the first search result
-                displayBreed(response[0]);
-                // for loop to display up to five results
-                for (var i = 0; i < 5 && i < response.length; i++) {
-                    var searchListItem = $("<a>")
-                    rootObject.append($("<li>").append(searchListItem));
-                    // <a> tag required for styling
-                    searchListItem.html(response[i].name);
-                }
+                displaySearch(response);
+                saveSearch();
             }
             // if no good response
             else {
+                $("#search-results").empty();
                 searchInputTippy[0].enable();
                 searchInputTippy[0].show();
-                rootObject.append("No results found");
+                $("#search-results").append("No results found");
                 searchResultTippy[0].disable();
             }
         });
     });
 
+    $("#dogImage").parent().on('click', function () {
+        if (dogImageindex) {
+            getImageUrl($("#dogImage"), dogImageindex, $("#dogImage").attr("alt"));
+        }
+    })
+
+    function displaySearch(response) {
+        // remove the search bar tooltip
+        searchInputTippy[0].disable();
+        // expose the search results tooltip
+        searchResultTippy[0].enable();
+        searchResultTippy[0].show();
+        $("#search-results").empty();
+        displayBreed(response[0]);
+        // for loop to display up to five results
+        for (var i = 0; i < 5 && i < response.length; i++) {
+            var searchListItem = $("<a>")
+            $("#search-results").append($("<li>").append(searchListItem));
+            // <a> tag required for styling
+            searchListItem.html(response[i].name).data("index", i);
+            lastSearchResponse[i] = response[i];
+        }
+    }
+
 
     // event listener for clicking on the search results
     $("#search-results").on("click", "a", function () {
-        var breedName = $(this).text();
-        dogApiCall(breedName).then(function (response) {
-            // no error checking should be required here, the breedName came from this API
-            displayBreed(response[0]);
-        })
+        displayBreed(lastSearchResponse[$(this).data("index")]);
     });
 
     var searchInputTippy = tippy('#search-input', {
@@ -157,7 +178,18 @@ $("document").ready(function () {
     var searchResultTippy = tippy('#search-results', {
         content: 'Click a result to see the details!',
     });
-    document.getElementById('search-input').focus();
-    searchInputTippy[0].show();
-    searchResultTippy[0].disable();
+
+    function init() {
+        if (lastSearch && lastSearchResponse) {
+            $("#search-input").val(lastSearch);
+            displaySearch(lastSearchResponse);
+        }
+        else {
+            document.getElementById('search-input').focus();
+            searchInputTippy[0].show();
+            searchResultTippy[0].disable();
+        }
+    }
+
+    init();
 });
