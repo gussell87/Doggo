@@ -1,15 +1,9 @@
-/* new CSS style sheet */
+/* Minimal addtional styling was used and the focus was to use bulma as much as possible */
 
 body {
-
-    /* background-color: rgb(195, 255, 205); */
     background-image: url("../assets/dog.jpg");
 }
 
 .is-ancestor {
     margin: 10px!important;
 }
-
-/* #dogImage {
-    height: 200px;
-} */

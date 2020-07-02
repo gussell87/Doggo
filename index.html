@@ -16,17 +16,22 @@
     <nav class="navbar level" role="navigation" aria-label="main navigation">
         <div class="navbar-brand level-item has-text-centered">
             <h1 class="title is-1 my-2 has-text-grey">
+                <!-- The main Heading and slogan, split in parts to include icons and different stlying -->
                 D<i class="fas fa-paw has-text-primary-dark"></i>GG<i class="fas fa-paw has-text-primary-dark"></i><br>
-                <p class="title is-4 has-text-grey">Love <span class="is-italic has-text-weight-bold has-text-primary-dark">DOGS</span>... Let's <span
-        class="is-italic has-text-weight-bold has-text-primary-dark">GO</span>... With <span class="is-italic has-text-weight-bold has-text-primary-dark">DOGGO</span>!!!</p>
+                <p class="title is-4 has-text-grey">Love <span
+                        class="is-italic has-text-weight-bold has-text-primary-dark">DOGS</span>... Let's <span
+                        class="is-italic has-text-weight-bold has-text-primary-dark">GO</span>... With <span
+                        class="is-italic has-text-weight-bold has-text-primary-dark">DOGGO</span>!!!</p>
             </h1 class="title is-4">
-            
+
         </div>
     </nav>
+    <!-- The Ancestor div is used to layout the main body of the html -->
     <div class="tile is-ancestor">
         <div class="tile is-vertical">
             <div class="tile">
                 <div class="tile is-3 is-parent">
+                    <!-- This child div is where the search bar is along with the displayed listing  -->
                     <div class="tile is-child box">
                         <div class="field has-addons">
                             <div class="control">
@@ -38,6 +43,7 @@
                                 </a>
                             </div>
                         </div>
+                        <!-- Breed search listing displayed here -->
                         <div class="menu">
                             <p class="menu-label">Breeds</p>
                             <ul id="search-results" class="menu-list">
@@ -50,6 +56,7 @@
                 <div class="tile is-vertical">
                     <div class="tile">
                         <div class="tile is-parent">
+                            <!-- This child div is where all the dog info will be displayed -->
                             <article class="tile is-child box">
                                 <p class="title has-text-grey" id="dogName">DOGGO INFO</p>
                                 <p class="title is-4 is-spaced has-text-primary-dark">Breed Group:<span id="dogGroup"
@@ -80,6 +87,7 @@
                             </article>
                         </div>
                         <div class="tile is-parent">
+                            <!-- This child div is where the dog image will be displayed -->
                             <article class="tile is-child box">
                                 <p class="title has-text-grey">DOGGO LOOK-A-LIKE</p>
                                 <figure class="image">
@@ -90,6 +98,7 @@
                         </div>
                     </div>
                     <div class="tile is-parent">
+                        <!-- This child div is where all the wiki info will be displayed -->
                         <article class="tile is-child box">
                             <p class="title has-text-grey" id="wikiTitle">WIKI</p>
 
@@ -110,6 +119,7 @@
         </div>
     </div>
     <footer class="footer">
+        <!-- All the links below are for each contributors Github account, the main github repo and the bulma tag -->
         <div class="content has-text-centered">
             <p>
                 <strong>DOGGO</strong> by <a href="https://github.com/gussell87">Angus</a>, <a
@@ -118,6 +128,9 @@
             </p>
             <a href="https://github.com/gussell87/doggo">
                 <img src="./assets/github.png" width="30" height="30" alt="Github logo" loading="lazy">
+            </a>
+            <a href="https://bulma.io">
+                <img src="https://bulma.io/images/made-with-bulma.png" alt="Made with Bulma" width="128" height="24">
             </a>
         </div>
     </footer>
