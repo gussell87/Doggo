@@ -23,23 +23,20 @@ https://github.com/gussell87/doggo
 
 
 ## Built With
-HTML
-
-CSS: Bulma, FontAwesome
-
-JavaScript:  JQuery, Popper & Tippy
-
-Other API's: Wikipedia, The Dog API
+* HTML
+* CSS: Bulma, FontAwesome
+* JavaScript:  JQuery, Popper & Tippy
+* Other API's: Wikipedia, The Dog API
 
 
 ## API's
-**Image & Characteristics** https://api.thedogapi.com/v1/images/search?apikey=
-**Description** https://en.wikipedia.org/w/api.php?action=
-**Layout** https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css
-**Functionality** https://code.jquery.com/jquery-3.4.1.min.js
-**Icons** https://kit.fontawesome.com
-**Tool Tips** https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js
-**Tool Tips** https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js
+* **Image & Characteristics** https://api.thedogapi.com/v1/images/search?apikey=
+* **Description** https://en.wikipedia.org/w/api.php?action=
+* **Layout** https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css
+* **Functionality** https://code.jquery.com/jquery-3.4.1.min.js
+* **Icons** https://kit.fontawesome.com
+* **Tool Tips** https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js
+* **Tool Tips** https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js
 
 
 ## Versioning
